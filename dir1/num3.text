@@ -1,0 +1,79 @@
+import com.num3.num3.entry;
+
+import java.sql.*;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+ public class example {
+    public static void main(String[] args) {
+        int x = 0;
+        int y = 0;
+        double id = 0;
+        String firstname;
+        String lastname;
+        char choice;
+        char choice2;
+        Scanner scan = new Scanner(System.in);
+        do {
+            System.out.println("Please enter your First name : ");
+            firstname = scan.next();
+            System.out.println("Please enter your Last name : ");
+            lastname = scan.next();
+            System.out.println("Please enter your Id number : ");
+            id = scan.nextDouble();
+
+            String mid = Double.toString(id);
+            Connection con1;
+            PreparedStatement ps;
+            ResultSet rs;
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/num", "root", "Eimari101!");
+                ps = con1.prepareStatement("insert into table1(Id,Firstname,Lastname)values(?,?,?)");
+                ps.setString(1, mid);
+                ps.setString(2, firstname);
+                ps.setString(3, lastname);
+                ps.executeUpdate();
+
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(entry.class.getName()).log(Level.SEVERE, null, ex);
+
+            } catch (SQLException a) {
+                a.printStackTrace();
+            }
+            System.out.println("Do you want to see the data (Y/N):");
+            choice2 = scan.next().charAt(0);
+
+            if (choice2 == 'y' || choice2 == 'Y') {
+               try{
+                   Class.forName("com.mysql.jdbc.Driver");
+                   con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/num", "root", "Eimari101!");
+                   String query = "select * from table1";
+                   Statement st =  con1.createStatement();
+                   rs = st.executeQuery(query);
+
+                   while(rs.next()){
+                       int di = rs.getInt(1);
+                       String fname = rs.getString(2);
+                       String lname = rs.getString(3);
+                       System.out.println(di+ "-"+fname + "-" + lname);
+
+
+                   }
+               } catch (ClassNotFoundException ex) {
+                   Logger.getLogger(entry.class.getName()).log(Level.SEVERE, null, ex);
+
+               } catch (SQLException a) {
+                   a.printStackTrace();
+               }
+
+               }
+
+                System.out.println("Do you want to continue (Y/N):  ");
+                choice = scan.next().charAt(0);
+
+        }while (choice == 'y' || choice == 'Y') ;
+    }
+}
