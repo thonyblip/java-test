@@ -1,0 +1,39 @@
+ackage com.num3.num3;
+
+
+class People {
+    public void diflanguage() {
+        System.out.println("The different kinds of hello");
+    }
+}
+
+class English extends People {
+    public void diflanguage() {
+        System.out.println("English: hello");
+    }
+}
+
+class Japanese extends People {
+    public void diflanguage() {
+        System.out.println("Japanese: Kon'nichiwa");
+    }
+}
+class Filipino extends People {
+    public void diflanguage() {
+        System.out.println("Filipino: Kamusta");
+    }
+}
+class Javatest {
+    public static void main(String[] args) {
+        People language = new People();
+        People english = new English();
+        People japanese = new Japanese();
+        People filipino = new Filipino();
+
+        language.diflanguage();
+        english.diflanguage();
+        japanese.diflanguage();
+        filipino.diflanguage();
+        float f  = (float) 17.3F;
+    }
+}
